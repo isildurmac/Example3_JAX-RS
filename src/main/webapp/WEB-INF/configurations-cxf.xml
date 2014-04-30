@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+        xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+        xmlns:http-conf="http://cxf.apache.org/transports/http/configuration"
+        xmlns:cxf="http://cxf.apache.org/core"
+        xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd">
+
+    <import resource="classpath:META-INF/cxf/cxf.xml" />
+    <import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
+
+    <jaxrs:server id="restContainer" address="/gestUser">
+        <jaxrs:serviceBeans>
+            <bean class="cu.uci.cdae.tutoriales.services.Impl.UserServiceImpl" />
+        </jaxrs:serviceBeans>
+        <jaxrs:providers>
+            <bean class="org.codehaus.jackson.jaxrs.JacksonJsonProvider" />
+			<bean class="org.apache.cxf.jaxrs.provider.JAXBElementProvider" />
+            <!--ref bean="jaxbProvider"/-->
+        </jaxrs:providers>
+        <jaxrs:features>
+            <cxf:logging/>
+        </jaxrs:features>
+    </jaxrs:server>
+
+    <!--bean id="jacksonMapper" class="org.codehaus.jackson.map.ObjectMapper">
+        <property name="serializationConfig.dateFormat">
+            <bean class="java.text.SimpleDateFormat">
+                <constructor-arg value="yyyy-MM-dd'T'HH:mm:ss.SZ"/>
+            </bean>
+        </property>
+    </bean-->
+
+    <!--bean id="jsonProvider" class="org.codehaus.jackson.jaxrs.JacksonJsonProvider">
+        <property name="mapper" ref="jacksonMapper" />
+    </bean-->
+    <!--bean id="jaxbProvider" class="org.apache.cxf.jaxrs.provider.JAXBElementProvider"/-->
+
+
+</beans>
